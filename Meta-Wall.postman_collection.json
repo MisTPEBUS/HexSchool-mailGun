@@ -1,0 +1,1159 @@
+{
+  "info": {
+    "_postman_id": "b66bc902-abe3-42c3-ac13-df594f8cc673",
+    "name": "Meta-Wall Copy",
+    "description": "# 📄 Get started here\n\nThis template contains a boilerplate for documentation that you can quickly customize and reuse.\n\n## 🔖 How to use this template\n\n- Replace the content given brackets (()) with your API's details.\n- Tips are formatted in `codespan` - feel free to read and remove them.\n    \n\n---\n\n`Start with a brief overview of what your API offers.`\n\nThe ((product name)) provides many API products, tools, and resources that enable you to ((add product value here)).\n\n`You can also list the APIs you offer, link to the relevant pages, or do both in this section.`\n\n## **Getting started guide**\n\n`List the steps or points required to start using your APIs. Make sure to cover everything required to reach success with your API as quickly as possible.`\n\nTo start using the ((add APIs here)), you need to -\n\n`The points given below are from The Postman API's documentation. You can reference it to write your own getting started guide.`\n\n- You must use a valid API Key to send requests to the API endpoints. You can get your API key from Postman's [integrations dashboard](https://go.postman.co/settings/me/api-keys).\n- The API has [rate and usage limits](https://learning.postman.com/docs/developer/postman-api/postman-api-rate-limits/).\n- The API only responds to HTTPS-secured communications. Any requests sent via HTTP return an HTTP 301 redirect to the corresponding HTTPS resources.\n- The API returns request responses in JSON format. When an API request returns an error, it is sent in the JSON response as an error key.\n    \n\n## Authentication\n\n`Add details on the authorization keys/tokens required, steps that cover how to get them, and the relevant error codes.`\n\nThe ((product name)) API uses ((add your API's authorization type)) for authentication.\n\n`The details given below are from the Postman API's documentation. You can reference it to write your own authentication section.`\n\nPostman uses API keys for authentication. You can generate a Postman API key in the [API keys](https://postman.postman.co/settings/me/api-keys) section of your Postman account settings.\n\nYou must include an API key in each request to the Postman API with the X-Api-Key request header.\n\n### Authentication error response\n\nIf an API key is missing, malformed, or invalid, you will receive an HTTP 401 Unauthorized response code.\n\n## Rate and usage limits\n\n`Use this section to cover your APIs' terms of use. Include API limits, constraints, and relevant error codes, so consumers understand the permitted API usage and practices.`\n\n`The example given below is from The Postman API's documentation. Use it as a reference to write your APIs' terms of use.`\n\nAPI access rate limits apply at a per-API key basis in unit time. The limit is 300 requests per minute. Also, depending on your plan, you may have usage limits. If you exceed either limit, your request will return an HTTP 429 Too Many Requests status code.\n\nEach API response returns the following set of headers to help you identify your use status:\n\n| Header | Description |\n| --- | --- |\n| `X-RateLimit-Limit` | The maximum number of requests that the consumer is permitted to make per minute. |\n| `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window. |\n| `X-RateLimit-Reset` | The time at which the current rate limit window resets in UTC epoch seconds. |\n\n### 503 response\n\nAn HTTP `503` response from our servers indicates there is an unexpected spike in API access traffic. The server is usually operational within the next five minutes. If the outage persists or you receive any other form of an HTTP `5XX` error, [contact support](https://support.postman.com/hc/en-us/requests/new/).\n\n### **Need some help?**\n\n`Add links that customers can refer to whenever they need help.`\n\nIn case you have questions, go through our tutorials ((link to your video or help documentation here)). Or visit our FAQ page ((link to the relevant page)).\n\nOr you can check out our community forum, there’s a good chance our community has an answer for you. Visit our developer forum ((link to developer forum)) to review topics, ask questions, and learn from others.\n\n`You can also document or add links to libraries, code examples, and other resources needed to make a request.`",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "14627098",
+    "_collection_link": "https://www.postman.com/navigation-physicist-58730858/workspace/test/collection/14627098-b66bc902-abe3-42c3-ac13-df594f8cc673?action=share&source=collection_link&creator=14627098"
+  },
+  "item": [
+    {
+      "name": "Localhost",
+      "item": [
+        {
+          "name": "使用者個人及驗證",
+          "item": [
+            {
+              "name": "註冊",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Lobinda\",\r\n    \"photo\": \"https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA\",\r\n    \"sex\": \"male\",\r\n    \"email\": \"Lobinda123@test.com\",\r\n    \"password\": \"1q2w3e4r\"\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:2330/v1/api/sign_up",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "sign_up"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            },
+            {
+              "name": "登入",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"Lobinda123@test.com\",\r\n    \"password\": \"1q2w3e4r\"\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:2330/v1/api/sign_in",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "sign_in"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            },
+            {
+              "name": "登出",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg0NWIwYTE5NGY5OWViNzdjMWM0NSIsImlhdCI6MTcxNzA2MTI4NCwiZXhwIjoxNzE3MTQ3Njg0fQ.HcBryZYadl1gQYPY0UNBVKGsBgD6lEl4rw2oLZ4wwp4"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:2330/v1/api/sign_out",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "sign_out"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            },
+            {
+              "name": "查詢個人資料",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "jwt",
+                  "jwt": [
+                    {
+                      "key": "algorithm",
+                      "value": "HS256",
+                      "type": "string"
+                    },
+                    {
+                      "key": "isSecretBase64Encoded",
+                      "value": false,
+                      "type": "boolean"
+                    },
+                    {
+                      "key": "payload",
+                      "value": "{}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "addTokenTo",
+                      "value": "header",
+                      "type": "string"
+                    },
+                    {
+                      "key": "headerPrefix",
+                      "value": "Bearer",
+                      "type": "string"
+                    },
+                    {
+                      "key": "queryParamKey",
+                      "value": "token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "header",
+                      "value": "{}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWM2MThmYTI2ODVmOWI5ZTRjNzlmZSIsImlhdCI6MTcxNzMzNDg0NiwiZXhwIjoxNzE3NDIxMjQ2fQ.eDfzWuvQxMb5p6HCdfjZ6yM-K13OHWXTkrIzHoivG5c"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:2330/v1/api/user/profile",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "user", "profile"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            },
+            {
+              "name": "修改個人資料",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "jwt",
+                  "jwt": [
+                    {
+                      "key": "algorithm",
+                      "value": "HS256",
+                      "type": "string"
+                    },
+                    {
+                      "key": "isSecretBase64Encoded",
+                      "value": false,
+                      "type": "boolean"
+                    },
+                    {
+                      "key": "payload",
+                      "value": "{}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "addTokenTo",
+                      "value": "header",
+                      "type": "string"
+                    },
+                    {
+                      "key": "headerPrefix",
+                      "value": "Bearer",
+                      "type": "string"
+                    },
+                    {
+                      "key": "queryParamKey",
+                      "value": "token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "header",
+                      "value": "{}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg0NWIwYTE5NGY5OWViNzdjMWM0NSIsImlhdCI6MTcxNzE0MjgwNCwiZXhwIjoxNzE3MjI5MjA0fQ.39tuACWGqcpuGbCwdVIrJ7RCb2L5l8x4-EOzfXKY1uA"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Lobinda\",\r\n    \"photo\": \"https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA\",\r\n    \"sex\": \"male\",\r\n    \"email\": \"Lobinda123@test.com\",\r\n   \r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:2330/v1/api/user/profile",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "user", "profile"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            },
+            {
+              "name": "修改密碼",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "jwt",
+                  "jwt": [
+                    {
+                      "key": "algorithm",
+                      "value": "HS256",
+                      "type": "string"
+                    },
+                    {
+                      "key": "isSecretBase64Encoded",
+                      "value": false,
+                      "type": "boolean"
+                    },
+                    {
+                      "key": "payload",
+                      "value": "{}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "addTokenTo",
+                      "value": "header",
+                      "type": "string"
+                    },
+                    {
+                      "key": "headerPrefix",
+                      "value": "Bearer",
+                      "type": "string"
+                    },
+                    {
+                      "key": "queryParamKey",
+                      "value": "token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "header",
+                      "value": "{}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg0NWIwYTE5NGY5OWViNzdjMWM0NSIsImlhdCI6MTcxNzE0MjgwNCwiZXhwIjoxNzE3MjI5MjA0fQ.39tuACWGqcpuGbCwdVIrJ7RCb2L5l8x4-EOzfXKY1uA"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n \"password\":\"1q2w3e4r\",\r\n\"confirmPassword\":\"1q2w3e4r\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:2330/v1/api/user/updatePassword",
+                  "protocol": "http",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "user", "updatePassword"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "貼文牆",
+          "item": [
+            {
+              "name": "查詢全部貼文",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "127.0.0.1:2330/v1/api/posts",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "posts"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "查詢個人全部貼文",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg0NWIwYTE5NGY5OWViNzdjMWM0NSIsImlhdCI6MTcxNzE0MjgwNCwiZXhwIjoxNzE3MjI5MjA0fQ.39tuACWGqcpuGbCwdVIrJ7RCb2L5l8x4-EOzfXKY1uA"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "127.0.0.1:2330/v1/api/posts/personal",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "posts", "personal"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "查詢單一貼文內容",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "127.0.0.1:2330/v1/api/posts/6629b7a60f4d31990f5e67aa",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "posts", "6629b7a60f4d31990f5e67aa"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "新增個人貼文",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWM2MThmYTI2ODVmOWI5ZTRjNzlmZSIsImlhdCI6MTcxNzM0Mjg1OCwiZXhwIjoxNzE3NDI5MjU4fQ.hvpt7vUg3euksvkC-M2kpKNHUoyFSh9EeYxx_knrZlc"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"content\": \"這是第一條訊息\",\r\n  \"userPhoto\": \"https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA\",\r\n  \"tags\": \"美食\",\r\n  \"image\": \"https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "127.0.0.1:2330/v1/api/posts",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "posts"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "修改個人貼文",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWM2MThmYTI2ODVmOWI5ZTRjNzlmZSIsImlhdCI6MTcxNzM0Mjg1OCwiZXhwIjoxNzE3NDI5MjU4fQ.hvpt7vUg3euksvkC-M2kpKNHUoyFSh9EeYxx_knrZlc"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"content\": \"這是第一條訊息\",\r\n  \"userPhoto\": \"https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA\",\r\n  \"tags\": \"美食\",\r\n  \"image\": \"https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "127.0.0.1:2330/v1/api/posts/665c94061280af722184b565",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "posts", "665c94061280af722184b565"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "刪除個人貼文",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "127.0.0.1:2330/v1/api/posts/66498bc699278c927151702s",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "posts", "66498bc699278c927151702s"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "刪除個人全部貼文",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "127.0.0.1:2330/v1/api/posts/66498bc699278c927151702s",
+                  "host": ["127", "0", "0", "1"],
+                  "port": "2330",
+                  "path": ["v1", "api", "posts", "66498bc699278c927151702s"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "圖片上傳",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjA5NWUxZWE2ZWI0MWI1ZDU0NDBhNCIsImlhdCI6MTcxNzc3Mjc2OSwiZXhwIjoxNzE3ODU5MTY5fQ.Atx3uyxGXtUPtE6A3CgZPkeQGK0Y2BHKZFRXtTxA70A"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "",
+                  "type": "file",
+                  "src": "/C:/Users/User/Documents/0818_2382.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:2330/v1/api/upload/file",
+              "protocol": "http",
+              "host": ["127", "0", "0", "1"],
+              "port": "2330",
+              "path": ["v1", "api", "upload", "file"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Render",
+      "item": [
+        {
+          "name": "使用者個人及驗證 Copy",
+          "item": [
+            {
+              "name": "註冊",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Lobinda\",\r\n    \"photo\": \"https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA\",\r\n    \"sex\": \"male\",\r\n    \"email\": \"Lobinda1234@test.com\",\r\n    \"password\": \"1q2w3e4r\"\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/sign_up",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "sign_up"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            },
+            {
+              "name": "登入",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"Lobinda123@test.com\",\r\n    \"password\": \"1q2w3e4r\"\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/sign_in",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "sign_in"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            },
+            {
+              "name": "登出",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg0NWIwYTE5NGY5OWViNzdjMWM0NSIsImlhdCI6MTcxNzA2MTI4NCwiZXhwIjoxNzE3MTQ3Njg0fQ.HcBryZYadl1gQYPY0UNBVKGsBgD6lEl4rw2oLZ4wwp4"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/sign_out",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "sign_out"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            },
+            {
+              "name": "查詢個人資料",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "jwt",
+                  "jwt": [
+                    {
+                      "key": "algorithm",
+                      "value": "HS256",
+                      "type": "string"
+                    },
+                    {
+                      "key": "isSecretBase64Encoded",
+                      "value": false,
+                      "type": "boolean"
+                    },
+                    {
+                      "key": "payload",
+                      "value": "{}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "addTokenTo",
+                      "value": "header",
+                      "type": "string"
+                    },
+                    {
+                      "key": "headerPrefix",
+                      "value": "Bearer",
+                      "type": "string"
+                    },
+                    {
+                      "key": "queryParamKey",
+                      "value": "token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "header",
+                      "value": "{}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg0NWIwYTE5NGY5OWViNzdjMWM0NSIsImlhdCI6MTcxNzE0MjgwNCwiZXhwIjoxNzE3MjI5MjA0fQ.39tuACWGqcpuGbCwdVIrJ7RCb2L5l8x4-EOzfXKY1uA"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/user/profile",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "user", "profile"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            },
+            {
+              "name": "修改個人資料",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "jwt",
+                  "jwt": [
+                    {
+                      "key": "algorithm",
+                      "value": "HS256",
+                      "type": "string"
+                    },
+                    {
+                      "key": "isSecretBase64Encoded",
+                      "value": false,
+                      "type": "boolean"
+                    },
+                    {
+                      "key": "payload",
+                      "value": "{}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "addTokenTo",
+                      "value": "header",
+                      "type": "string"
+                    },
+                    {
+                      "key": "headerPrefix",
+                      "value": "Bearer",
+                      "type": "string"
+                    },
+                    {
+                      "key": "queryParamKey",
+                      "value": "token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "header",
+                      "value": "{}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWM2MThmYTI2ODVmOWI5ZTRjNzlmZSIsImlhdCI6MTcxNzM3NjMwMiwiZXhwIjoxNzE3NDYyNzAyfQ.oeJebnm88ell-wre1zoY8QpLiQdUSDcVbJrUWmYAzpc"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Lobinda\",\r\n    \"photo\": \"https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA\",\r\n    \"sex\": \"male\",\r\n    \"email\": \"Lobinda123@test.com\"\r\n   \r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/user/profile",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "user", "profile"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            },
+            {
+              "name": "修改密碼",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "jwt",
+                  "jwt": [
+                    {
+                      "key": "algorithm",
+                      "value": "HS256",
+                      "type": "string"
+                    },
+                    {
+                      "key": "isSecretBase64Encoded",
+                      "value": false,
+                      "type": "boolean"
+                    },
+                    {
+                      "key": "payload",
+                      "value": "{}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "addTokenTo",
+                      "value": "header",
+                      "type": "string"
+                    },
+                    {
+                      "key": "headerPrefix",
+                      "value": "Bearer",
+                      "type": "string"
+                    },
+                    {
+                      "key": "queryParamKey",
+                      "value": "token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "header",
+                      "value": "{}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTg0NWIwYTE5NGY5OWViNzdjMWM0NSIsImlhdCI6MTcxNzE0MjgwNCwiZXhwIjoxNzE3MjI5MjA0fQ.39tuACWGqcpuGbCwdVIrJ7RCb2L5l8x4-EOzfXKY1uA"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n \"password\":\"1q2w3e4r\",\r\n\"confirmPassword\":\"1q2w3e4r\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/user/updatePassword",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "user", "updatePassword"]
+                },
+                "description": "Gets information about the authenticated user."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "貼文牆 Copy",
+          "item": [
+            {
+              "name": "查詢全部貼文",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/posts",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "posts"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "查詢個人全部貼文",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjA5NWUxZWE2ZWI0MWI1ZDU0NDBhNCIsImlhdCI6MTcxNzYwNTg2MywiZXhwIjoxNzE3NjkyMjYzfQ.rEAj1ozVCZxQV15gpS_imDvGFhqqAoXl68eJAWFDrQA"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/posts",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "posts"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "查詢單一貼文內容",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/posts/6629b7a60f4d31990f5e67aa",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "posts", "6629b7a60f4d31990f5e67aa"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "新增個人貼文",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWM2MThmYTI2ODVmOWI5ZTRjNzlmZSIsImlhdCI6MTcxNzM0Mjg1OCwiZXhwIjoxNzE3NDI5MjU4fQ.hvpt7vUg3euksvkC-M2kpKNHUoyFSh9EeYxx_knrZlc"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"content\": \"這是第一條訊息\",\r\n  \"userPhoto\": \"https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA\",\r\n  \"tags\": \"美食\",\r\n  \"image\": \"https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/posts",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "posts"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "修改個人貼文",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWM2MThmYTI2ODVmOWI5ZTRjNzlmZSIsImlhdCI6MTcxNzM0Mjg1OCwiZXhwIjoxNzE3NDI5MjU4fQ.hvpt7vUg3euksvkC-M2kpKNHUoyFSh9EeYxx_knrZlc"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": " {\r\n    \"userName\": \"Alice Johnsondd\"\r\n  \r\n  }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/posts/66334ca233c4082143507545",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "posts", "66334ca233c4082143507545"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "刪除個人貼文",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWM2MThmYTI2ODVmOWI5ZTRjNzlmZSIsImlhdCI6MTcxNzM0Mjg1OCwiZXhwIjoxNzE3NDI5MjU4fQ.hvpt7vUg3euksvkC-M2kpKNHUoyFSh9EeYxx_knrZlc"
+                  }
+                ],
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/posts/66498bc699278c927151702s",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "posts", "66498bc699278c927151702s"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "刪除個人全部貼文",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWM2MThmYTI2ODVmOWI5ZTRjNzlmZSIsImlhdCI6MTcxNzM0Mjg1OCwiZXhwIjoxNzE3NDI5MjU4fQ.hvpt7vUg3euksvkC-M2kpKNHUoyFSh9EeYxx_knrZlc"
+                  }
+                ],
+                "url": {
+                  "raw": "https://hexschool-meta-wall.onrender.com/v1/api/posts/66498bc699278c927151702s",
+                  "protocol": "https",
+                  "host": ["hexschool-meta-wall", "onrender", "com"],
+                  "path": ["v1", "api", "posts", "66498bc699278c927151702s"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "圖片上傳 Copy",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjA5NWUxZWE2ZWI0MWI1ZDU0NDBhNCIsImlhdCI6MTcxNzkwMjE1OCwiZXhwIjoxNzE3OTg4NTU4fQ.ORHV4ZBOlcyModou9DmAhxA5DD-8FUaZafMnDR32n1A",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/C:/Users/User/Documents/3.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://hexschool-meta-wall.onrender.com/v1/api/upload",
+              "protocol": "https",
+              "host": ["hexschool-meta-wall", "onrender", "com"],
+              "path": ["v1", "api", "upload"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://farming-simulator.pstmn.io"
+    }
+  ]
+}
