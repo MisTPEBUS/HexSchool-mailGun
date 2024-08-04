@@ -285,11 +285,10 @@ router.post(
 //email驗證
 router.patch(
   "/verify-email/:token",
-  isAuth,
   handleErrorAsync(async (req, res, next) => {
 
     const { token } = req.params;
-
+    console.log(token);
     if (!token) {
       return next(appError("傳入格式異常!請查閱API文件", next));
     }
@@ -311,14 +310,11 @@ router.patch(
 
     /*
       #swagger.tags =  ['使用者登入驗證']
-      #swagger.path = '/v1/api/auth/verify-email/{id}'
+      #swagger.path = '/v1/api/auth/verify-email/{token}'
       #swagger.method = 'patch'
       #swagger.summary='email驗證'
       #swagger.description = 'email驗證'
       #swagger.produces = ["application/json"] 
-      #swagger.security = [{
-        "bearerAuth": []
-    }]
     */
     /*
      #swagger.requestBody = {
@@ -329,23 +325,7 @@ router.patch(
                  schema: {
                      type: "object",
                      properties: {
-                         name: {
-                             type: "string",
-                              example: "Lobinda"
-                         },
-                          email: {
-                             type: "string",
-                              example: "Lobinda123@test.com"
-                         },
-                          photo: {
-                             type: "string",
-                              example: "https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA"
-                         },
-                          sex: {
-                             type: "string",
-                              enum:["male", "female"],
-                              example: "male"
-                         },
+                         
                         
                      },
                      
@@ -359,14 +339,7 @@ router.patch(
   #swagger.responses[200] = { 
     schema: {
        "success": true,
-       "message": "已修改個人資料!",
-        "data": {
-          "_id": "665c618fa2685f9b9e4c79fe",
-          "name": "Lobinda",
-          "photo": "https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA",
-          "sex": "male",
-          "followers": []
-        }
+       "message": "驗證成功"
       }
     } 
   #swagger.responses[400] = { 

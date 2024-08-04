@@ -48,7 +48,7 @@ const generateMailSendJWT = (user, statusCode, res, next) => {
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_MAIL_EXPIRES_DAY,
   });
-  const URL = `http://localhost:2330/v1/api/auth/verify-email/${token}`;
+  const URL = `https://hexschool-mailgun.onrender.com/v1/api/auth/verify-email/${token}`;
   user.password = undefined;
   user.token = token;
   user.URL = URL;

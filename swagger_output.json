@@ -472,7 +472,7 @@
         }
       }
     },
-    "/v1/api/auth/verify-email/{id}": {
+    "/v1/api/auth/verify-email/{token}": {
       "patch": {
         "tags": [
           "使用者登入驗證"
@@ -481,16 +481,9 @@
         "description": "email驗證",
         "parameters": [
           {
-            "name": "id",
+            "name": "token",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
             "schema": {
               "type": "string"
             }
@@ -510,33 +503,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "已修改個人資料!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "_id": {
-                          "type": "string",
-                          "example": "665c618fa2685f9b9e4c79fe"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "Lobinda"
-                        },
-                        "photo": {
-                          "type": "string",
-                          "example": "https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA"
-                        },
-                        "sex": {
-                          "type": "string",
-                          "example": "male"
-                        },
-                        "followers": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        }
-                      }
+                      "example": "驗證成功"
                     }
                   },
                   "xml": {
@@ -554,33 +521,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "已修改個人資料!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "_id": {
-                          "type": "string",
-                          "example": "665c618fa2685f9b9e4c79fe"
-                        },
-                        "name": {
-                          "type": "string",
-                          "example": "Lobinda"
-                        },
-                        "photo": {
-                          "type": "string",
-                          "example": "https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA"
-                        },
-                        "sex": {
-                          "type": "string",
-                          "example": "male"
-                        },
-                        "followers": {
-                          "type": "array",
-                          "example": [],
-                          "items": {}
-                        }
-                      }
+                      "example": "驗證成功"
                     }
                   },
                   "xml": {
@@ -632,11 +573,6 @@
             }
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "requestBody": {
           "required": true,
           "description": "會員資料",
@@ -644,28 +580,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "Lobinda"
-                  },
-                  "email": {
-                    "type": "string",
-                    "example": "Lobinda123@test.com"
-                  },
-                  "photo": {
-                    "type": "string",
-                    "example": "https://unsplash.com/photos/a-black-and-white-photo-of-a-woman-holding-a-cell-phone-3D0Jxa1QSVA"
-                  },
-                  "sex": {
-                    "type": "string",
-                    "enum": [
-                      "male",
-                      "female"
-                    ],
-                    "example": "male"
-                  }
-                }
+                "properties": {}
               }
             }
           }
