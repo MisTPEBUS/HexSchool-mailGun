@@ -9,7 +9,7 @@ const doc = {
   servers: [
 
     {
-      url: "https://hexschool-meta-wall.onrender.com", // by default: 'http://localhost:3000'
+      url: "https://hexschool-mailgun.onrender.com", // by default: 'http://localhost:3000'
       description: "Render", // by default: ''
     },
     {

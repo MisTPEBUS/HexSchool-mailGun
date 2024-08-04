@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://hexschool-meta-wall.onrender.com",
+      "url": "https://hexschool-mailgun.onrender.com",
       "description": "Render"
     },
     {
