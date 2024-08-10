@@ -6,6 +6,11 @@ HexSchool-MailGun
 
 ## 版本控管
 
+1.0.0
+
+- JWT驗證機制
+- mail郵件寄信驗證
+
 ## 技術棧
 
 - express --no view
