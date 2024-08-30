@@ -19,6 +19,14 @@
     {
       "name": "使用者登入驗證",
       "description": "Users&Auth"
+    },
+    {
+      "name": "會員管理",
+      "description": "Account"
+    },
+    {
+      "name": "管理者設定",
+      "description": "Admin_Setting"
     }
   ],
   "paths": {
@@ -30,115 +38,8 @@
         "summary": "會員註冊",
         "description": "會員註冊",
         "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "true"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "user": {
-                          "type": "object",
-                          "properties": {
-                            "token": {
-                              "type": "string",
-                              "example": "eyJhbGciOiJ..........mDWPvJZSxu98W4"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Lobinda"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "true"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "user": {
-                          "type": "object",
-                          "properties": {
-                            "token": {
-                              "type": "string",
-                              "example": "eyJhbGciOiJ..........mDWPvJZSxu98W4"
-                            },
-                            "name": {
-                              "type": "string",
-                              "example": "Lobinda"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Error Msg"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Error Msg"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -161,6 +62,21 @@
                     "type": "string",
                     "description": "至少要8碼",
                     "example": "1q2w3e4r"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "可Null",
+                    "example": "0987654321"
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "地址",
+                    "example": "地球某個角落"
+                  },
+                  "date_of_birth": {
+                    "type": "Date",
+                    "description": "生日",
+                    "example": "2006-08-18"
                   }
                 },
                 "required": [
@@ -360,234 +276,7 @@
         }
       }
     },
-    "/v1/api/auth/resend-mail": {
-      "post": {
-        "tags": [
-          "使用者登入驗證"
-        ],
-        "summary": "重寄郵件",
-        "description": "會員登入",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "true"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Success"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "true"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Success"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Error Msg"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Error Msg"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "example": "Lobinda123@test.com"
-                  }
-                },
-                "required": [
-                  "email"
-                ]
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/api/auth/verify-email/{token}": {
-      "patch": {
-        "tags": [
-          "使用者登入驗證"
-        ],
-        "summary": "email驗證",
-        "description": "email驗證",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "驗證成功"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "驗證成功"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Error Msg"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Error Msg"
-                    }
-                  },
-                  "xml": {
-                    "name": "main"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "description": "會員資料",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {}
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/api/user/updatePassword": {
+    "/v1/api/auth/updatePassword": {
       "patch": {
         "tags": [
           "使用者登入驗證"
@@ -597,6 +286,13 @@
         "parameters": [
           {
             "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorizatio",
             "in": "header",
             "schema": {
               "type": "string"
@@ -744,6 +440,84 @@
                 ]
               }
             }
+          }
+        }
+      }
+    },
+    "/v1/api/Admin/Account/": {
+      "get": {
+        "tags": [
+          "會員管理"
+        ],
+        "summary": "會員清單",
+        "description": "會員清單",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "query",
+            "description": "1:搜尋黑名單 0:不是黑名單, 預設空直為搜尋全部",
+            "enum": [
+              1,
+              0,
+              "undefined"
+            ],
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "is_blacklisted",
+            "in": "query",
+            "description": "1:搜尋黑名單 0:不是黑名單, 預設空直為搜尋全部",
+            "enum": [
+              1,
+              0,
+              "undefined"
+            ],
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "keyWord",
+            "in": "query",
+            "description": "關鍵字fuzzy[email], 預設空直為搜尋全部",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timeSort",
+            "in": "query",
+            "description": "排序遠到近,進到遠default = desc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "清單顯示比數,default=10",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "顯示第幾頁資料default=1",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }

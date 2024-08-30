@@ -5,6 +5,7 @@ const User = require("../models/users");
 
 const isAuth = handleErrorAsync(async (req, res, next) => {
   let token;
+
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -12,6 +13,7 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
     token = req.headers.authorization.split(" ")[1];
   }
 
+  console.log(req.headers.authorizatio);
   if (!token) {
     return next(appError("請重新登入！", next, 401));
   }
@@ -20,6 +22,7 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
   const decoded = await new Promise((resolve, reject) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
       if (!payload) {
+
         return next(appError("Token格式異常請重新登入！", next));
       }
 

@@ -6,118 +6,123 @@ const mongoose = require("mongoose");
 const User = require("../models/users.js");
 const {
   Success,
-  NotFound,
+  SuccessList,
   appError,
 } = require("../services/handleResponse.js");
 const { handleErrorAsync } = require("../services/handleResponse.js");
-const { isAuth, generateSendJWT, generateMailSendJWT } = require("../services/auth");
+const { isAuth, generateSendJWT, generateMailSendJWT } = require("../services/auth.js");
 
 
-//註冊
-router.post(
-  "/sign_up",
+//清單
+router.get(
+  "/",
   handleErrorAsync(async (req, res, next) => {
-    let { name, email, password, phone, address, date_of_birth } = req.body;
-    if (!name || !email || !password) {
-      return next(appError("傳入格式異常!請查閱API文件", next));
+    const { timeSort, keyWord, is_blacklisted, role, page = 1, limit = 10 } = req.query;
+
+
+    const tSort = timeSort == "asc" ? "createdAt" : "-createdAt";
+    let query = {};
+    //關鍵字針對Model中userName + content 搜尋
+    if (keyWord) {
+      query.$or = [
+        { email: new RegExp(keyWord, "i") },
+
+      ];
     }
-    // Content cannot null
-    if (!email.trim()) {
-      return next(appError("Email欄位不能為空值！", next));
-    }
-    if (!password.trim()) {
-      return next(appError("Password欄位不能為空值！", next));
-    }
-    if (!validator.isLength(password, { min: 8 })) {
-      return next(appError("Password至少要8碼！", next));
-    }
-    if (!name.trim()) {
-      return next(appError("Name欄位不能為空值！", next));
+    // 設定 is_blacklisted 的查詢條件
+    if (is_blacklisted !== undefined) {
+      if (is_blacklisted === 'true') {
+        query.is_blacklisted = true;
+      } else if (is_blacklisted === 'false') {
+        query.is_blacklisted = false;
+      }
+
     }
 
-    // isEmail Type
-    if (!validator.isEmail(email)) {
-      return next(appError("Email 格式不正確", next));
-    }
-    // find user
+    // 設定 role 的查詢條件
+    if (role !== undefined) {
+      if (role === 'user') {
+        query.role = 'user';
+      } else if (role === 'admin') {
+        query.role = 'admin';
+      }
 
-    const isUser = await User.findOne({ email: email });
-
-    if (isUser) {
-      return next(appError("使用者已經註冊", next, 409));
     }
-    // pwd salt
 
-    password = bcrypt.hash(password, 12);
-    // 加密密碼
-    password = await bcrypt.hash(req.body.password, 12);
-    try {
-      const newUser = await User.create({
-        name,
-        email,
-        password,
-        phone,
-        address,
-        date_of_birth
-      });
-      generateSendJWT(newUser, 201, res);
-    } catch (err) {
-      return next(appError(err.message, next));
-    }
+    // 計算分頁參數
+    const currentPage = Math.max(parseInt(page) || 1, 1); // 確保 page 是正整數
+    const itemsPerPage = Math.max(parseInt(limit) || 10, 1); // 確保 limit 是正整數
+
+    // 計算符合條件的總數
+    const totalCount = await User.countDocuments(query);
+
+    // 計算總頁數
+    const totalPages = Math.ceil(totalCount / itemsPerPage);
+
+    // 查詢資料並根據時間排序和分頁
+    const users = await User.find(query)
+      .sort(tSort)
+      .skip((currentPage - 1) * itemsPerPage) // 跳過前面頁數的資料
+      .limit(itemsPerPage); // 取回目前頁面的資料
+
+    // 設定分頁信息
+    const pagination = {
+      total_pages: totalPages,
+      current_page: currentPage,
+      has_pre: currentPage > 1,
+      has_next: currentPage < totalPages
+    };
+    res.data = users;
+    SuccessList(res, "", pagination);
+
+
     /*
-      #swagger.tags =  ['使用者登入驗證']
-      #swagger.path = '/v1/api/auth/sign_up'
-      #swagger.method = 'post'
-      #swagger.summary='會員註冊'
-      #swagger.description = '會員註冊'
+      #swagger.tags =  ['會員管理']
+      #swagger.path = '/v1/api/Admin/Account/'
+      #swagger.method = 'get'
+      #swagger.summary='會員清單'
+      #swagger.description = '會員清單'
       #swagger.produces = ["application/json"] 
     */
-    /*
- #swagger.requestBody = {
-             required: true,
-             description:"會員資料",
-             content: {
-                 "application/json": {
-                 schema: {
-                     type: "object",
-                     properties: {
-                         name: {
-                             type: "string",
-                              example: "Lobinda"
-                         },
-                          email: {
-                             type: "string",
-                              example: "Lobinda123@test.com"
-                         },
-                         
-                          password: {
-                             type: "string",
-                             description: "至少要8碼",
-                              example: "1q2w3e4r"
-                         },
-                          phone: {
-                             type: "string",
-                             description: "可Null",
-                              example: "0987654321"
-                         },
-                          address: {
-                             type: "string",
-                             description: "地址",
-                              example: "地球某個角落"
-                         },
-                          date_of_birth: {
-                             type: "Date",
-                             description: "生日",
-                              example: "2006-08-18"
-                         },
-                     },
-                     required: ["name", "email",  "password"]
-                 }  
-             }
-             }
+    /* 
+      #swagger.parameters['role'] = {
+            in: 'query',
+            description: '管理身分, 預設空直為搜尋全部',
+            enum: ['user', 'admin', 'undefined'],
+            type: 'boolean'
          } 
+          #swagger.parameters['is_blacklisted'] = {
+            in: 'query',
+            description: '1:搜尋黑名單 0:不是黑名單, 預設空直為搜尋全部',
+            enum: [1, 0, 'undefined'],
+            type: 'boolean'
+         } 
+        #swagger.parameters['keyWord'] = {
+            in: 'query',
+            description: '關鍵字fuzzy[email], 預設空直為搜尋全部',
+            type: 'string'
+         } 
+         #swagger.parameters['timeSort'] = {
+            in: 'query',
+            description: '排序遠到近,進到遠default = desc',
+           enum: ['asc', 'desc'],
+            type: 'string'
+         } 
+        #swagger.parameters['limit'] = {
+            in: 'query',
+            description: '清單顯示比數,default=10',
+          
+            type: 'number'
+         } 
+        #swagger.parameters['page'] = {
+            in: 'query',
+            description: '顯示第幾頁資料default=1',
+         
+            type: 'number'
+         } 
+    */
+    /*
  
-  }
   #swagger.responses[201] = { 
     description: "回傳登入token,使用為"
     schema: {
@@ -140,9 +145,9 @@ router.post(
   }),
 );
 
-//登入
-router.post(
-  "/sign_in",
+//黑名單
+router.patch(
+  "/is_Black",
   handleErrorAsync(async (req, res, next) => {
     let { email, password } = req.body;
     if (!email || !password) {
@@ -232,7 +237,7 @@ router.post(
   }),
 );
 
-//更新密碼
+//管理員
 router.patch(
   "/updatePassword",
   isAuth,

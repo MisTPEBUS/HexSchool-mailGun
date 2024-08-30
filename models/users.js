@@ -5,12 +5,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "名字 未填寫"],
     },
+    photo: {
+      type: String,
+    },
     email: {
       type: String,
       required: [true, "Email 未填寫"],
       unique: true,
       lowercase: true,
-      select: false,
+
     },
     password: {
       type: String,
@@ -18,7 +21,29 @@ const userSchema = new mongoose.Schema(
       minlength: 8,
       select: false,
     },
+    phone: {
+      type: String,
+      minlength: 8,
+    },
+    address: {
+      type: String,
+    },
+    date_of_birth: {
+      type: Date
+    },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user'
+    },
+    is_blacklisted: {
+      type: Boolean
+    },
     confirmedToken: {
+      type: Date,
+      select: false,
+    },
+    confirmedAt: {
       type: Date,
       select: false,
     },
@@ -27,11 +52,11 @@ const userSchema = new mongoose.Schema(
       default: Date.now,
       select: false,
     },
-    confirmedAt: {
-      type: Date,
-      select: false,
-    },
-
+    remarks: {
+      type: String,
+      trim: true,
+      default: ""
+    }
   },
   {
     versionKey: false,

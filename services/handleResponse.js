@@ -7,6 +7,16 @@ const Success = (res, message = "", data = "", status = 200) => {
   });
 };
 
+//  success Response
+const SuccessList = (res, message = "", pagination, status = 200) => {
+  res.status(status).json({
+    success: true,
+    message,
+    data: res.data,
+    pagination
+  });
+};
+
 // NotFound Response
 const NotFound = (errMessage, next) => {
   const error = new Error(errMessage);
@@ -61,6 +71,7 @@ const handleErrorAsync = function handleErrorAsync(func) {
 
 module.exports = {
   Success,
+  SuccessList,
   NotFound,
   appError,
   handleAppMainErrorResponse,

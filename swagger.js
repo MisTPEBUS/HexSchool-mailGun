@@ -22,6 +22,14 @@ const doc = {
     {
       name: "使用者登入驗證",
       description: "Users&Auth",
+    },
+    {
+      name: "會員管理",
+      description: "Account",
+    },
+    {
+      name: "管理者設定",
+      description: "Admin_Setting",
     }
   ],
 
