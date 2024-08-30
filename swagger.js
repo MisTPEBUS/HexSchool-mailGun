@@ -13,7 +13,7 @@ const doc = {
       description: "Render", // by default: ''
     },
     {
-      url: "http://localhost:2330", // by default: 'http://localhost:3000'
+      url: "http://127.0.0.1:2330", // by default: 'http://localhost:3000'
       description: "Local", // by default: ''
     }
   ],
@@ -30,7 +30,11 @@ const doc = {
     {
       name: "管理者設定",
       description: "Admin_Setting",
-    }
+    },
+    {
+      name: "圖片上傳",
+      description: "Upload",
+    },
   ],
 
   components: {

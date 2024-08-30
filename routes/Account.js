@@ -67,6 +67,7 @@ router.get(
 
     // 設定分頁信息
     const pagination = {
+      total: totalCount,
       total_pages: totalPages,
       current_page: currentPage,
       has_pre: currentPage > 1,
@@ -147,7 +148,7 @@ router.get(
 
 //黑名單
 router.patch(
-  "/is_Black",
+  "/{id}/",
   handleErrorAsync(async (req, res, next) => {
     let { email, password } = req.body;
     if (!email || !password) {
