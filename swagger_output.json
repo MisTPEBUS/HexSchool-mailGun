@@ -526,23 +526,13 @@
         }
       }
     },
-    "/v1/api/Admin/Upload/{id}": {
+    "/v1/api/Admin/Upload": {
       "post": {
         "tags": [
           "圖片上傳"
         ],
         "summary": "圖片上傳",
         "description": "圖片上傳",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -627,9 +617,14 @@
             }
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
-          "description": "jpg、jpeg 與 png ",
+          "description": "貼文牆",
           "content": {
             "multipart/form-data": {
               "schema": {

@@ -10,10 +10,10 @@ const bucket = firebaseAdmin.storage().bucket(); // 取出存儲桶內容
 const { isAuth } = require("../services/auth");
 
 router.post(
-  "/:id",
+  "/",
+  uploadMiddleware,
   handleErrorAsync(async (req, res, next) => {
-    console.log(1);
-    /* if (!req.files.length) {
+    if (!req.files.length) {
       return next(appError("尚未上傳檔案", next));
     }
     const file = req.files[0];
@@ -38,7 +38,6 @@ router.post(
         if (err) {
           return next(appError(err, next));
         }
-
         res.status(200).json({
           status: true,
           imageUrl: fileUrl,
@@ -49,28 +48,22 @@ router.post(
     blobStream.on("error", (err) => {
       console.log(err);
       return next(appError("上傳失敗", next, 500));
-    }); */
+    });
     /*
   #swagger.tags =  ['圖片上傳']
-  #swagger.path = '/v1/api/Admin/Upload/{id}'
+  #swagger.path = '/v1/api/Admin/Upload'
   #swagger.method = 'post'
   #swagger.summary='圖片上傳'
   #swagger.description = '圖片上傳'
- 
+  #swagger.security = [{
+     "bearerAuth": []
+ }]
  */
 
     /*
-    #swagger.parameters['id'] = {
-          in: path,    
-          required: <boolean>,                     
-          type: string,                          
-                               
-          schema: string  
-    */
-    /*
      #swagger.requestBody = {
              required: true,
-             description:"jpg、jpeg 與 png ",
+             description:"貼文牆",
              content: {
                   "multipart/form-data": {
                    schema: {
