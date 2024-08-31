@@ -12,7 +12,7 @@ const doc = {
       description: "Local", // by default: ''
     },
     {
-      url: "https://hexschool-mailgun.onrender.com", // by default: 'http://localhost:3000'
+      url: "https://foodiefund.onrender.com", // by default: 'http://localhost:3000'
       description: "Render", // by default: ''
     },
 
