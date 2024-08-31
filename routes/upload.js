@@ -51,7 +51,7 @@ router.post(
     });
     /*
   #swagger.tags =  ['圖片上傳']
-  #swagger.path = '/v1/api/Admin/Upload'
+  #swagger.path = '/v1/api/admin/upload'
   #swagger.method = 'post'
   #swagger.summary='圖片上傳'
   #swagger.description = '圖片上傳'

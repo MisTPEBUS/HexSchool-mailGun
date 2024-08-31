@@ -106,7 +106,8 @@ router.post(
                               example: "地球某個角落"
                          },
                           date_of_birth: {
-                             type: "Date",
+                              type: "string",
+                        format: "date",
                              description: "生日",
                               example: "2006-08-18"
                          },

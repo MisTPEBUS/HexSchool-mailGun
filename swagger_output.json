@@ -2,17 +2,17 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "title": "HexSchool-MailGun",
-    "description": "六角學院API"
+    "title": "FOODIE-FUND",
+    "description": "眾資成城-在你心愛的餐廳成為合夥人"
   },
   "servers": [
     {
-      "url": "http://127.0.0.1:2330",
-      "description": "Local"
-    },
-    {
       "url": "https://foodiefund.onrender.com",
       "description": "Render"
+    },
+    {
+      "url": "http://127.0.0.1:2330",
+      "description": "Local"
     }
   ],
   "tags": [
@@ -78,7 +78,8 @@
                     "example": "地球某個角落"
                   },
                   "date_of_birth": {
-                    "type": "Date",
+                    "type": "string",
+                    "format": "date",
                     "description": "生日",
                     "example": "2006-08-18"
                   }
@@ -448,7 +449,7 @@
         }
       }
     },
-    "/v1/api/Admin/Account/": {
+    "/v1/api/admin/account/": {
       "get": {
         "tags": [
           "會員管理"
@@ -459,7 +460,7 @@
           {
             "name": "role",
             "in": "query",
-            "description": "管理身分, 預設空直為搜尋全部",
+            "description": "管理身分, user,admin",
             "enum": [
               "user",
               "admin",
@@ -470,7 +471,7 @@
             }
           },
           {
-            "name": "is_blacklisted",
+            "name": "isBlackListed",
             "in": "query",
             "description": "1:搜尋黑名單 0:不是黑名單, 預設空直為搜尋全部",
             "enum": [
@@ -485,7 +486,7 @@
           {
             "name": "keyWord",
             "in": "query",
-            "description": "關鍵字fuzzy[email], 預設空直為搜尋全部",
+            "description": "關鍵字fuzzy[email,phone,address,dateOfBirth], 預設空直為搜尋全部",
             "schema": {
               "type": "string"
             }
@@ -526,7 +527,7 @@
         }
       }
     },
-    "/v1/api/Admin/Account/Blacklist/{id}": {
+    "/v1/api/admin/account/blackList/{id}": {
       "patch": {
         "tags": [
           "會員管理"
@@ -595,7 +596,7 @@
                           "type": "string",
                           "example": ""
                         },
-                        "is_blacklisted": {
+                        "isBlackListed": {
                           "type": "boolean",
                           "example": false
                         },
@@ -658,7 +659,7 @@
                           "type": "string",
                           "example": ""
                         },
-                        "is_blacklisted": {
+                        "isBlackListed": {
                           "type": "boolean",
                           "example": false
                         },
@@ -767,7 +768,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "is_blacklisted": {
+                  "isBlackListed": {
                     "type": "boolean",
                     "enum": [
                       "1",
@@ -777,7 +778,7 @@
                   }
                 },
                 "required": [
-                  "is_blacklisted"
+                  "isBlackListed"
                 ]
               }
             }
@@ -785,7 +786,7 @@
         }
       }
     },
-    "/v1/api/Admin/Account/RoleCharacter/{id}": {
+    "/v1/api/admin/account/roleCharacter/{id}": {
       "patch": {
         "tags": [
           "會員管理"
@@ -854,7 +855,7 @@
                           "type": "string",
                           "example": ""
                         },
-                        "is_blacklisted": {
+                        "isBlackListed": {
                           "type": "boolean",
                           "example": false
                         },
@@ -917,7 +918,7 @@
                           "type": "string",
                           "example": ""
                         },
-                        "is_blacklisted": {
+                        "isBlackListed": {
                           "type": "boolean",
                           "example": false
                         },
@@ -1026,13 +1027,13 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "Role": {
+                  "role": {
                     "type": "string",
                     "example": "user,admin"
                   }
                 },
                 "required": [
-                  "Role"
+                  "role"
                 ]
               }
             }
@@ -1040,7 +1041,7 @@
         }
       }
     },
-    "/v1/api/Admin/Account/{id}": {
+    "/v1/api/admin/account/{id}": {
       "put": {
         "tags": [
           "會員管理"
@@ -1109,7 +1110,7 @@
                           "type": "string",
                           "example": ""
                         },
-                        "is_blacklisted": {
+                        "isBlackListed": {
                           "type": "boolean",
                           "example": false
                         },
@@ -1172,7 +1173,7 @@
                           "type": "string",
                           "example": ""
                         },
-                        "is_blacklisted": {
+                        "isBlackListed": {
                           "type": "boolean",
                           "example": false
                         },
@@ -1312,7 +1313,7 @@
         }
       }
     },
-    "/v1/api/Admin/Upload": {
+    "/v1/api/admin/upload": {
       "post": {
         "tags": [
           "圖片上傳"

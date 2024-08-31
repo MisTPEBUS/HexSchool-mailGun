@@ -17,21 +17,23 @@ const { isAuth, generateSendJWT, generateMailSendJWT } = require("../services/au
 router.get(
   "/",
   handleErrorAsync(async (req, res, next) => {
-    const { timeSort, keyWord, is_blacklisted, role, page = 1, limit = 10 } = req.query;
+    const { timeSort, keyWord, isBlackListed, role, page = 1, limit = 10 } = req.query;
     const tSort = timeSort == "asc" ? "createdAt" : "-createdAt";
     let query = {};
     //關鍵字針對Model中userName + content 搜尋
     if (keyWord) {
       query.$or = [
         { email: new RegExp(keyWord, "i") },
-
+        { phone: new RegExp(keyWord, "i") },
+        { address: new RegExp(keyWord, "i") },
+        { dateOfBirth: new RegExp(keyWord, "i") }
       ];
     }
-    // 設定 is_blacklisted 的查詢條件
+    // 設定 isBlackListed 的查詢條件
 
-    if (is_blacklisted !== undefined) {
+    if (isBlackListed !== undefined) {
 
-      query.is_blacklisted = Boolean(is_blacklisted);
+      query.isBlackListed = Boolean(isBlackListed);
     }
 
     // 設定 role 的查詢條件
@@ -74,7 +76,7 @@ router.get(
 
     /*
       #swagger.tags =  ['會員管理']
-      #swagger.path = '/v1/api/Admin/Account/'
+      #swagger.path = '/v1/api/admin/account/'
       #swagger.method = 'get'
       #swagger.summary='會員清單'
       #swagger.description = '會員清單'
@@ -83,19 +85,20 @@ router.get(
     /* 
       #swagger.parameters['role'] = {
             in: 'query',
-            description: '管理身分, 預設空直為搜尋全部',
+            description: '管理身分, user,admin',
             enum: ['user', 'admin', 'undefined'],
             type: 'string'
          } 
-          #swagger.parameters['is_blacklisted'] = {
+          #swagger.parameters['isBlackListed'] = {
             in: 'query',
             description: '1:搜尋黑名單 0:不是黑名單, 預設空直為搜尋全部',
             enum: [1, 0, 'undefined'],
             type: 'boolean'
          } 
+        
         #swagger.parameters['keyWord'] = {
             in: 'query',
-            description: '關鍵字fuzzy[email], 預設空直為搜尋全部',
+            description: '關鍵字fuzzy[email,phone,address,dateOfBirth], 預設空直為搜尋全部',
             type: 'string'
          } 
          #swagger.parameters['timeSort'] = {
@@ -107,13 +110,11 @@ router.get(
         #swagger.parameters['limit'] = {
             in: 'query',
             description: '清單顯示比數,default=10',
-          
             type: 'number'
          } 
         #swagger.parameters['page'] = {
             in: 'query',
             description: '顯示第幾頁資料default=1',
-         
             type: 'number'
          } 
     */
@@ -143,11 +144,11 @@ router.get(
 
 //黑名單
 router.patch(
-  "/Blacklist/:id",
+  "/blackList/:id",
   handleErrorAsync(async (req, res, next) => {
     const { id } = req.params;
-    const { is_blacklisted } = req.body;
-    console.log(is_blacklisted);
+    const { isBlackListed } = req.body;
+    console.log(isBlackListed);
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return next(appError("id格式無效!請使用系統加密過的參數", next));
@@ -161,13 +162,13 @@ router.patch(
     }
 
 
-    if (is_blacklisted !== 1 && is_blacklisted !== 0) {
-      return next(appError("is_blacklisted傳入格式異常!請查閱API文件", next));
+    if (isBlackListed !== 1 && isBlackListed !== 0) {
+      return next(appError("isBlackListed傳入格式異常!請查閱API文件", next));
     }
 
     const user = await User.findByIdAndUpdate(
       id, // 查找的條件
-      { $set: { is_blacklisted } }, // 更新的操作
+      { $set: { isBlackListed } }, // 更新的操作
       { new: true, useFindAndModify: false } // 返回更新後的文檔
     );
 
@@ -180,7 +181,7 @@ router.patch(
 
     /*
     #swagger.tags =  ['會員管理']
-    #swagger.path = '/v1/api/Admin/Account/Blacklist/{id}'
+    #swagger.path = '/v1/api/admin/account/blackList/{id}'
     #swagger.method = 'patch'
     #swagger.summary='設定黑名單'
     #swagger.description = '設定黑名單'
@@ -204,13 +205,13 @@ router.patch(
                  schema: {
                      type: "object",
                      properties: {
-                          is_blacklisted: {
+                          isBlackListed: {
                              type: "boolean",
                               enum:["1", "0"],
                               example: "1"
                          },
                      },
-                     required: ["is_blacklisted"]
+                     required: ["isBlackListed"]
                  }  
              }
              }
@@ -233,7 +234,7 @@ router.patch(
                   "date_of_birth": "2006-08-18T00:00:00.000Z",
                   "role": "user",
                   "remarks": "",
-                  "is_blacklisted": false,
+                  "isBlackListed": false,
                   "id": "66d0c762273627e056be5238"
             }
           }
@@ -290,7 +291,7 @@ router.patch(
 
     /*
     #swagger.tags =  ['會員管理']
-    #swagger.path = '/v1/api/Admin/Account/RoleCharacter/{id}'
+    #swagger.path = '/v1/api/admin/account/roleCharacter/{id}'
     #swagger.method = 'patch'
     #swagger.summary='設定權限'
     #swagger.description = '設定權限'
@@ -314,13 +315,13 @@ router.patch(
                  schema: {
                      type: "object",
                      properties: {
-                          Role: {
+                          role: {
                              type: "string",
                              
                               example: "user,admin"
                          },
                      },
-                     required: ["Role"]
+                     required: ["role"]
                  }  
              }
              }
@@ -343,7 +344,7 @@ router.patch(
                   "date_of_birth": "2006-08-18T00:00:00.000Z",
                   "role": "user",
                   "remarks": "",
-                  "is_blacklisted": false,
+                  "isBlackListed": false,
                   "id": "66d0c762273627e056be5238"
             }
           }
@@ -381,7 +382,7 @@ router.put(
     if (!id.trim()) {
       return next(appError("id欄位不能為空值！", next));
     }
-    const allowedFields = ["name", "photo", "email", "phone", "address", "date_of_birth"]; // 前端提供的欄位名稱
+    const allowedFields = ["name", "photo", "phone", "address", "date_of_birth"]; // 前端提供的欄位名稱
     const filteredData = {};
 
     console.log(1)
@@ -407,7 +408,7 @@ router.put(
 
     /*
     #swagger.tags =  ['會員管理']
-    #swagger.path = '/v1/api/Admin/Account/{id}'
+    #swagger.path = '/v1/api/admin/account/{id}'
     #swagger.method = 'put'
     #swagger.summary='更新基本資料'
     #swagger.description = '更新基本資料'
@@ -479,7 +480,7 @@ router.put(
                   "date_of_birth": "2006-08-18T00:00:00.000Z",
                   "role": "user",
                   "remarks": "",
-                  "is_blacklisted": false,
+                  "isBlackListed": false,
                   "id": "66d0c762273627e056be5238"
             }
           }

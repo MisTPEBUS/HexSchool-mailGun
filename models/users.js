@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
     address: {
       type: String,
     },
-    date_of_birth: {
+    dateOfBirth: {
       type: Date
     },
     role: {
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema(
       enum: ['user', 'admin'],
       default: 'user'
     },
-    is_blacklisted: {
+    isBlackListed: {
       type: Boolean
     },
     confirmedToken: {
@@ -60,11 +60,9 @@ const userSchema = new mongoose.Schema(
   },
   {
     versionKey: false,
-
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   },
 );
 const User = mongoose.model("User", userSchema);
-
 module.exports = User;

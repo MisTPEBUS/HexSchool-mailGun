@@ -3,19 +3,19 @@ const swaggerAutogen = require("swagger-autogen")({ openapi: "3.0.0" });
 const doc = {
   info: {
     version: "1.0.0", // by default: '1.0.0'
-    title: "HexSchool-MailGun", // by default: 'REST API'
-    description: "六角學院API", // by default: ''
+    title: "FOODIE-FUND", // by default: 'REST API'
+    description: "眾資成城-在你心愛的餐廳成為合夥人", // by default: ''
   },
   servers: [
-    {
-      url: "http://127.0.0.1:2330", // by default: 'http://localhost:3000'
-      description: "Local", // by default: ''
-    },
+
     {
       url: "https://foodiefund.onrender.com", // by default: 'http://localhost:3000'
       description: "Render", // by default: ''
     },
-
+    {
+      url: "http://127.0.0.1:2330", // by default: 'http://localhost:3000'
+      description: "Local", // by default: ''
+    },
   ],
   tags: [
     // by default: empty Array
