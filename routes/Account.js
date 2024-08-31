@@ -18,8 +18,6 @@ router.get(
   "/",
   handleErrorAsync(async (req, res, next) => {
     const { timeSort, keyWord, is_blacklisted, role, page = 1, limit = 10 } = req.query;
-
-
     const tSort = timeSort == "asc" ? "createdAt" : "-createdAt";
     let query = {};
     //關鍵字針對Model中userName + content 搜尋
@@ -323,6 +321,142 @@ router.patch(
                          },
                      },
                      required: ["Role"]
+                 }  
+             }
+             }
+         } 
+ 
+  }
+    
+    */
+    /*
+      #swagger.responses[200] = { 
+        schema: {
+            "success": true,
+            "message": "",
+            "data": {
+                  "_id": "66d0c762273627e056be5238",
+                  "name": "Lobinda",
+                  "email": "lobinda123@test.com",
+                  "phone": "0987654321",
+                  "address": "地球某個角落",
+                  "date_of_birth": "2006-08-18T00:00:00.000Z",
+                  "role": "user",
+                  "remarks": "",
+                  "is_blacklisted": false,
+                  "id": "66d0c762273627e056be5238"
+            }
+          }
+        } 
+      #swagger.responses[400] = { 
+        schema: {
+            "status": false,
+            "message": "Error Msg",
+          }
+        } 
+        #swagger.responses[403] = { 
+        schema: {
+            "status": false,
+            "message": "Mail not verified",
+          }
+        } 
+     */
+  }),
+);
+
+//更新資料
+router.put(
+  "/:id",
+  handleErrorAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(appError("id格式無效!請使用系統加密過的參數", next));
+    }
+    if (!id) {
+      return next(appError("id傳入格式異常!請查閱API文件", next));
+    }
+
+    if (!id.trim()) {
+      return next(appError("id欄位不能為空值！", next));
+    }
+    const allowedFields = ["name", "photo", "email", "phone", "address", "date_of_birth"]; // 前端提供的欄位名稱
+    const filteredData = {};
+
+    console.log(1)
+    Object.keys(updateData).forEach((key) => {
+      if (allowedFields.includes(key)) {
+        filteredData[key] = updateData[key];
+      }
+    });
+
+
+    const user = await User.findByIdAndUpdate(
+      id,
+      { $set: filteredData },
+      { new: true, useFindAndModify: false }
+    );
+
+
+
+    if (!user) {
+      return next(appError("使用者未註冊!", next));
+    }
+    Success(res, "", user);
+
+    /*
+    #swagger.tags =  ['會員管理']
+    #swagger.path = '/v1/api/Admin/Account/{id}'
+    #swagger.method = 'put'
+    #swagger.summary='更新基本資料'
+    #swagger.description = '更新基本資料'
+    #swagger.produces = ["application/json"] 
+  */
+    /*
+     #swagger.parameters['id'] = {
+            in: 'path',
+            description: '使用者id',
+            type: 'string'
+         } 
+*/
+    /*
+     /*
+        #swagger.requestBody = {
+             required: true,
+             description:"會員資料",
+             content: {
+                 "application/json": {
+                 schema: {
+                     type: "object",
+                     properties: {
+                          name: {
+                             type: "string",
+                              example: ""
+                         },
+                          photo: {
+                             type: "string",
+                              example: ""
+                         },
+                          email: {
+                             type: "string",
+                              example: ""
+                         },
+                          phone: {
+                             type: "string",
+                              example: ""
+                         },
+                          address: {
+                             type: "string",
+                              example: ""
+                         },
+                          date_of_birth: {
+                             type: "Date",
+                              example: ""
+                         },
+
+                     },
+                    
                  }  
              }
              }
