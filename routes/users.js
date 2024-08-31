@@ -54,6 +54,7 @@ router.post(
     try {
       const newUser = await User.create({
         name,
+        photo,
         email,
         password,
         phone,
@@ -89,7 +90,10 @@ router.post(
                              type: "string",
                               example: "Lobinda123@test.com"
                          },
-                         
+                          phto: {
+                             type: "string",
+                              example: "Lobinda123@test.com"
+                         },
                           password: {
                              type: "string",
                              description: "至少要8碼",
