@@ -7,15 +7,15 @@ const doc = {
     description: "六角學院API", // by default: ''
   },
   servers: [
-
+    {
+      url: "http://127.0.0.1:2330", // by default: 'http://localhost:3000'
+      description: "Local", // by default: ''
+    },
     {
       url: "https://hexschool-mailgun.onrender.com", // by default: 'http://localhost:3000'
       description: "Render", // by default: ''
     },
-    {
-      url: "http://127.0.0.1:2330", // by default: 'http://localhost:3000'
-      description: "Local", // by default: ''
-    }
+
   ],
   tags: [
     // by default: empty Array

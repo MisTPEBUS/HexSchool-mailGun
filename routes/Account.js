@@ -30,13 +30,10 @@ router.get(
       ];
     }
     // 設定 is_blacklisted 的查詢條件
-    if (is_blacklisted !== undefined) {
-      if (is_blacklisted === 'true') {
-        query.is_blacklisted = true;
-      } else if (is_blacklisted === 'false') {
-        query.is_blacklisted = false;
-      }
 
+    if (is_blacklisted !== undefined) {
+
+      query.is_blacklisted = Boolean(is_blacklisted);
     }
 
     // 設定 role 的查詢條件
@@ -90,7 +87,7 @@ router.get(
             in: 'query',
             description: '管理身分, 預設空直為搜尋全部',
             enum: ['user', 'admin', 'undefined'],
-            type: 'boolean'
+            type: 'string'
          } 
           #swagger.parameters['is_blacklisted'] = {
             in: 'query',
@@ -148,188 +145,224 @@ router.get(
 
 //黑名單
 router.patch(
-  "/{id}/",
+  "/Blacklist/:id",
   handleErrorAsync(async (req, res, next) => {
-    let { email, password } = req.body;
-    if (!email || !password) {
-      return next(appError("傳入格式異常!請查閱API文件", next));
-    }
-    // Content cannot null
+    const { id } = req.params;
+    const { is_blacklisted } = req.body;
+    console.log(is_blacklisted);
 
-    if (!email.trim() || !validator.isEmail(email)) {
-      return next(appError("Email欄位格式異常！", next));
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(appError("id格式無效!請使用系統加密過的參數", next));
     }
-    if (!password.trim()) {
-      return next(appError("Password欄位不能為空值！", next));
+    if (!id) {
+      return next(appError("id傳入格式異常!請查閱API文件", next));
     }
 
-    const user = await User.findOne({ email }).select("+password");
+    if (!id.trim()) {
+      return next(appError("id欄位不能為空值！", next));
+    }
+
+
+    if (is_blacklisted !== 1 && is_blacklisted !== 0) {
+      return next(appError("is_blacklisted傳入格式異常!請查閱API文件", next));
+    }
+
+    const user = await User.findByIdAndUpdate(
+      id, // 查找的條件
+      { $set: { is_blacklisted } }, // 更新的操作
+      { new: true, useFindAndModify: false } // 返回更新後的文檔
+    );
+
+
 
     if (!user) {
       return next(appError("使用者未註冊!", next));
     }
-
-    /* if (!user.confirmedAt) {
-      return next(appError("email未驗證!", next, 403));
-    } */
-
-    const auth = await bcrypt.compare(password, user.password);
-    if (!auth) {
-      return next(appError("帳號密碼錯誤!", next));
-    }
-    generateSendJWT(user, 200, res);
+    Success(res, "", user);
 
     /*
-    #swagger.tags =  ['使用者登入驗證']
-    #swagger.path = '/v1/api/auth/sign_in'
-    #swagger.method = 'post'
-    #swagger.summary='會員登入'
-    #swagger.description = '會員登入'
+    #swagger.tags =  ['會員管理']
+    #swagger.path = '/v1/api/Admin/Account/Blacklist/{id}'
+    #swagger.method = 'patch'
+    #swagger.summary='設定黑名單'
+    #swagger.description = '設定黑名單'
     #swagger.produces = ["application/json"] 
   */
     /*
- #swagger.requestBody = {
+     #swagger.parameters['id'] = {
+            in: 'path',
+            description: '使用者id',
+           
+            type: 'string'
+         } 
+*/
+    /*
+     /*
+        #swagger.requestBody = {
              required: true,
+             description:"會員資料",
              content: {
                  "application/json": {
                  schema: {
                      type: "object",
                      properties: {
-                          email: {
-                             type: "string",
-                              example: "Lobinda123@test.com"
-                         },
-                          password: {
-                             type: "string",
-                             example: "1q2w3e4r"
+                          is_blacklisted: {
+                             type: "boolean",
+                              enum:["1", "0"],
+                              example: "1"
                          },
                      },
-                     required: ["email", "password"]
+                     required: ["is_blacklisted"]
                  }  
              }
              }
          } 
  
   }
-  #swagger.responses[200] = { 
-    schema: {
-        "status": "true",
-        "data": {
-             "user": {
-                 "token": "eyJhbGciOiJ..........mDWPvJZSxu98W4",
-                 "name": "Lobinda"
-             }
-        }
-      }
-    } 
-  #swagger.responses[400] = { 
-    schema: {
-        "status": false,
-        "message": "Error Msg",
-      }
-    } 
-    #swagger.responses[403] = { 
-    schema: {
-        "status": false,
-        "message": "Mail not verified",
-      }
-    } 
- */
+    
+    */
+    /*
+      #swagger.responses[200] = { 
+        schema: {
+            "success": true,
+            "message": "",
+            "data": {
+                  "_id": "66d0c762273627e056be5238",
+                  "name": "Lobinda",
+                  "email": "lobinda123@test.com",
+                  "phone": "0987654321",
+                  "address": "地球某個角落",
+                  "date_of_birth": "2006-08-18T00:00:00.000Z",
+                  "role": "user",
+                  "remarks": "",
+                  "is_blacklisted": false,
+                  "id": "66d0c762273627e056be5238"
+            }
+          }
+        } 
+      #swagger.responses[400] = { 
+        schema: {
+            "status": false,
+            "message": "Error Msg",
+          }
+        } 
+        #swagger.responses[403] = { 
+        schema: {
+            "status": false,
+            "message": "Mail not verified",
+          }
+        } 
+     */
   }),
 );
 
 //管理員
 router.patch(
-  "/updatePassword",
-  isAuth,
+  "/RoleCharacter/:id",
   handleErrorAsync(async (req, res, next) => {
-    const { password, confirmPassword } = req.body;
+    const { id } = req.params;
+    const { Role } = req.body;
+    console.log(Role);
 
-    if (!password || !confirmPassword) {
-      return next(appError("傳入格式異常!請查閱API文件", next));
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(appError("id格式無效!請使用系統加密過的參數", next));
+    }
+    if (!id || !Role) {
+      return next(appError("id傳入格式異常!請查閱API文件", next));
     }
 
-    if (!password.trim()) {
-      return next(appError("password不得為空值!", next));
-    }
-    if (!confirmPassword.trim()) {
-      return next(appError("confirmPassword不得為空值!", next));
+    if (!id.trim() || !Role.trim()) {
+      return next(appError("id欄位不能為空值！", next));
     }
 
-    if (!validator.isLength(password, { min: 8 })) {
-      return next(appError("密碼至少8碼", next));
+
+
+    const user = await User.findByIdAndUpdate(
+      id, // 查找的條件
+      { $set: { role: Role } }, // 更新的操作
+      { new: true, useFindAndModify: false } // 返回更新後的文檔
+    );
+
+
+
+    if (!user) {
+      return next(appError("使用者未註冊!", next));
     }
-
-    if (password !== confirmPassword) {
-      return next(appError("密碼不一致！", next));
-    }
-
-    // 將新密碼加密
-    newPwd = await bcrypt.hash(password, 12);
-
-    // 更新資料庫
-    const user = await User.findByIdAndUpdate(req.user.id, {
-      password: newPwd,
-    });
-
-    // JWT
-    generateSendJWT(user, 200, res);
+    Success(res, "", user);
 
     /*
-      #swagger.tags =  ['使用者登入驗證']
-      #swagger.path = '/v1/api/auth/updatePassword'
-      #swagger.method = 'patch'
-      #swagger.summary='更新密碼'
-      #swagger.description = '更新密碼'
-      #swagger.produces = ["application/json"] 
-      #swagger.security = [{
-        "bearerAuth": []
-    }]
-    */
+    #swagger.tags =  ['會員管理']
+    #swagger.path = '/v1/api/Admin/Account/RoleCharacter/{id}'
+    #swagger.method = 'patch'
+    #swagger.summary='設定權限'
+    #swagger.description = '設定權限'
+    #swagger.produces = ["application/json"] 
+  */
     /*
- #swagger.requestBody = {
+     #swagger.parameters['id'] = {
+            in: 'path',
+            description: '使用者id',
+           
+            type: 'string'
+         } 
+*/
+    /*
+     /*
+        #swagger.requestBody = {
              required: true,
+             description:"會員資料",
              content: {
                  "application/json": {
                  schema: {
                      type: "object",
                      properties: {
-                          password: {
+                          Role: {
                              type: "string",
-                             description: "至少要8碼",
-                             example: "1q2w3e4r"
-                         },
-                         confirmPassword: {
-                             type: "string",
-                             description: "至少要8碼",
-                             example: "1q2w3e4r"
+                             
+                              example: "user,admin"
                          },
                      },
-                     required: [ "password", "confirmPassword"]
+                     required: ["Role"]
                  }  
              }
              }
          } 
  
   }
-  #swagger.responses[200] = { 
-    schema: {
-        "status": "true",
-        "data": {
-             "user": {
-                 "token": "eyJhbGciOiJ..........mDWPvJZSxu98W4",
-                 "name": "Lobinda"
-             }
-        }
-      }
-    } 
-  #swagger.responses[400] = { 
-    schema: {
-        "status": false,
-        "message": "Error Msg",
-      }
-    } 
- */
+    
+    */
+    /*
+      #swagger.responses[200] = { 
+        schema: {
+            "success": true,
+            "message": "",
+            "data": {
+                  "_id": "66d0c762273627e056be5238",
+                  "name": "Lobinda",
+                  "email": "lobinda123@test.com",
+                  "phone": "0987654321",
+                  "address": "地球某個角落",
+                  "date_of_birth": "2006-08-18T00:00:00.000Z",
+                  "role": "user",
+                  "remarks": "",
+                  "is_blacklisted": false,
+                  "id": "66d0c762273627e056be5238"
+            }
+          }
+        } 
+      #swagger.responses[400] = { 
+        schema: {
+            "status": false,
+            "message": "Error Msg",
+          }
+        } 
+        #swagger.responses[403] = { 
+        schema: {
+            "status": false,
+            "message": "Mail not verified",
+          }
+        } 
+     */
   }),
 );
 
