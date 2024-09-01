@@ -23,10 +23,7 @@ router.get(
     //關鍵字針對Model中userName + content 搜尋
     if (keyWord) {
       query.$or = [
-        { email: new RegExp(keyWord, "i") },
-        { phone: new RegExp(keyWord, "i") },
-        { address: new RegExp(keyWord, "i") },
-        { dateOfBirth: new RegExp(keyWord, "i") }
+        { email: new RegExp(keyWord, "i") }
       ];
     }
     // 設定 isBlackListed 的查詢條件
