@@ -62,15 +62,19 @@
                     "type": "string",
                     "example": "Lobinda123@test.com"
                   },
-                  "phone": {
+                  "photo": {
                     "type": "string",
-                    "description": "可Null",
-                    "example": "0987654321"
+                    "example": ""
                   },
                   "password": {
                     "type": "string",
                     "description": "至少要8碼",
                     "example": "1q2w3e4r"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "可Null",
+                    "example": "0987654321"
                   },
                   "address": {
                     "type": "string",

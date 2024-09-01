@@ -90,7 +90,7 @@ router.post(
                              type: "string",
                               example: "Lobinda123@test.com"
                          },
-                          phone: {
+                          photo: {
                              type: "string",
                               example: ""
                          },
