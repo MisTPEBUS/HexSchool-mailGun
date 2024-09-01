@@ -439,10 +439,7 @@ router.put(
                              type: "string",
                               example: ""
                          },
-                          email: {
-                             type: "string",
-                              example: ""
-                         },
+                         
                           phone: {
                              type: "string",
                               example: ""
