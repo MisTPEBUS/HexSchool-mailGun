@@ -1305,6 +1305,17 @@
                   "date_of_birth": {
                     "type": "Date",
                     "example": ""
+                  },
+                  "isBlackListed": {
+                    "type": "Boolean",
+                    "default": false
+                  },
+                  "role": {
+                    "enum": [
+                      "user",
+                      "admin"
+                    ],
+                    "default": "user"
                   }
                 }
               }

@@ -1,32 +1,29 @@
 const mongoose = require("mongoose");
-const userSchema = new mongoose.Schema(
+const SettingSchema = new mongoose.Schema(
   {
     tittle: {
       type: String,
+      required: true
     },
 
-    type: {
+    status: {
       type: String,
       enum: ['private', 'admin'],
+      required: true,
+
     },
-    is_Used: {
-      type: Boolean,
-      default: true,
+    content: {
+      type: [sectionSchema], // 陣列欄位，包含多個 sectionSchema 物件
+      required: false,
     },
 
-    confirmedAt: {
-      type: Date,
-      select: false,
-    },
     createdAt: {
       type: Date,
       default: Date.now,
-      select: false,
     },
     updateAt: {
       type: Date,
       default: Date.now,
-      select: false,
     },
   },
   {

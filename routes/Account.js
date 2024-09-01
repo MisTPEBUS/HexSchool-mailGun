@@ -382,14 +382,37 @@ router.put(
     if (!id.trim()) {
       return next(appError("id欄位不能為空值！", next));
     }
-    const allowedFields = ["name", "photo", "phone", "address", "date_of_birth"]; // 前端提供的欄位名稱
+    const allowedFields = ["name",
+      "photo", "phone", "address", "date_of_birth",
+      "isBlackListed", "role"]; // 前端提供的欄位名稱
     const filteredData = {};
 
 
     Object.keys(updateData).forEach((key) => {
+
+
       if (allowedFields.includes(key)) {
         filteredData[key] = updateData[key];
       }
+
+      if (key === "isBlackListed") {
+
+        if (typeof updateData[key] !== 'boolean') {
+          return next(appError("黑名單必須是boolean", next));
+        }
+      }
+      if (key === "name") {
+        if (!updateData[key].trim()) {
+          return next(appError("name欄位不能為空值！", next));
+        }
+      }
+      if (key === "role") {
+        const validRoles = ['user', 'admin'];
+        if (!validRoles.includes(updateData[key])) {
+          return next(appError('role 必須是 "user" 或 "admin" 之一', next));
+        }
+      }
+
     });
 
 
@@ -452,7 +475,16 @@ router.put(
                              type: "Date",
                               example: ""
                          },
-
+                          isBlackListed: {
+                             type: "Boolean",
+                             default: false
+                         },
+                         
+                          role: {
+                            type: String,
+                            enum: ['user', 'admin'],
+                            default: 'user'
+                         },
                      },
                     
                  }  
