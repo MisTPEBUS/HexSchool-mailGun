@@ -385,7 +385,7 @@ router.put(
     const allowedFields = ["name", "photo", "phone", "address", "date_of_birth"]; // 前端提供的欄位名稱
     const filteredData = {};
 
-    console.log(1)
+
     Object.keys(updateData).forEach((key) => {
       if (allowedFields.includes(key)) {
         filteredData[key] = updateData[key];
@@ -500,6 +500,74 @@ router.put(
      */
   }),
 );
+
+//刪除資料
+router.delete(
+  "/:id",
+  handleErrorAsync(async (req, res, next) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(appError("id格式無效!請使用系統加密過的參數", next));
+    }
+    if (!id) {
+      return next(appError("id傳入格式異常!請查閱API文件", next));
+    }
+
+    if (!id.trim()) {
+      return next(appError("id欄位不能為空值！", next));
+    }
+
+
+    const user = await User.findByIdAndDelete(
+      id,
+      { new: true, useFindAndModify: false }
+    );
+
+    if (!user) {
+      return next(appError("使用者未註冊!", next));
+    }
+    Success(res, "資料已刪除");
+
+    /*
+    #swagger.tags =  ['會員管理']
+    #swagger.path = '/v1/api/admin/account/{id}'
+    #swagger.method = 'delete'
+    #swagger.summary='刪除基本資料'
+    #swagger.description = '刪除基本資料'
+    #swagger.produces = ["application/json"] 
+  */
+    /*
+     #swagger.parameters['id'] = {
+            in: 'path',
+            description: '使用者id',
+            type: 'string'
+         } 
+*/
+
+    /*
+      #swagger.responses[200] = { 
+        schema: {
+            "success": true,
+            "message": "資料已刪除"
+          }
+        } 
+      #swagger.responses[400] = { 
+        schema: {
+            "status": false,
+            "message": "Error Msg",
+          }
+        } 
+        #swagger.responses[403] = { 
+        schema: {
+            "status": false,
+            "message": "Mail not verified",
+          }
+        } 
+     */
+  }),
+);
+
 
 
 
