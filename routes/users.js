@@ -17,7 +17,7 @@ const { isAuth, generateSendJWT, generateMailSendJWT } = require("../services/au
 router.post(
   "/sign_up",
   handleErrorAsync(async (req, res, next) => {
-    let { name, email, password, phone, address, date_of_birth } = req.body;
+    let { name, email, password, photo, phone, address, date_of_birth } = req.body;
     if (!name || !email || !password) {
       return next(appError("傳入格式異常!請查閱API文件", next));
     }
@@ -90,9 +90,9 @@ router.post(
                              type: "string",
                               example: "Lobinda123@test.com"
                          },
-                          phto: {
+                          phone: {
                              type: "string",
-                              example: "Lobinda123@test.com"
+                              example: ""
                          },
                           password: {
                              type: "string",

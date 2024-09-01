@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema(
     },
     photo: {
       type: String,
+      default: ""
     },
     email: {
       type: String,
@@ -24,9 +25,11 @@ const userSchema = new mongoose.Schema(
     phone: {
       type: String,
       minlength: 8,
+      default: ""
     },
     address: {
       type: String,
+      default: ""
     },
     dateOfBirth: {
       type: Date
@@ -37,7 +40,8 @@ const userSchema = new mongoose.Schema(
       default: 'user'
     },
     isBlackListed: {
-      type: Boolean
+      type: Boolean,
+      default: false
     },
     confirmedToken: {
       type: Date,
