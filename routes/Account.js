@@ -441,57 +441,57 @@ router.put(
             type: 'string'
          } 
 */
+
     /*
-     /*
-        #swagger.requestBody = {
-             required: true,
-             description:"會員資料",
-             content: {
-                 "application/json": {
-                 schema: {
-                     type: "object",
-                     properties: {
-                          name: {
-                             type: "string",
-                              example: ""
-                         },
-                          photo: {
-                             type: "string",
-                              example: ""
-                         },
-                         
-                          phone: {
-                             type: "string",
-                              example: ""
-                         },
-                          address: {
-                             type: "string",
-                              example: ""
-                         },
-                          date_of_birth: {
-                             type: "Date",
-                              example: ""
-                         },
-                          isBlackListed: {
-                             type: "Boolean",
-                             default: false
-                         },
-                         
-                          role: {
-                            type: String,
-                            enum: ['user', 'admin'],
-                            default: 'user'
-                         },
-                     },
-                    
-                 }  
-             }
-             }
-         } 
+       #swagger.requestBody = {
+            required: true,
+            description:"會員資料",
+            content: {
+                "application/json": {
+                schema: {
+                    type: "object",
+                    properties: {
+                         name: {
+                            type: "string",
+                             example: ""
+                        },
+                         photo: {
+                            type: "string",
+                             example: ""
+                        },
+                        
+                         phone: {
+                            type: "string",
+                             example: ""
+                        },
+                         address: {
+                            type: "string",
+                             example: ""
+                        },
+                         date_of_birth: {
+                            type: "Date",
+                             example: ""
+                        },
+                         isBlackListed: {
+                            type: "Boolean",
+                            default: false
+                        },
+                        
+                         role: {
+                           type: String,
+                           enum: ['user', 'admin'],
+                           default: 'user'
+                        },
+                    },
+                   
+                }  
+            }
+            }
+        } 
  
-  }
-    
-    */
+ }
+   
+   */
     /*
       #swagger.responses[200] = { 
         schema: {
