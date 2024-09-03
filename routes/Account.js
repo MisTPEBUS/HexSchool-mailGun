@@ -27,10 +27,11 @@ router.get(
       ];
     }
     // 設定 isBlackListed 的查詢條件
+    console.log(Boolean(Number(isBlackListed)));
+    console.log(isBlackListed == false);
+    if (isBlackListed !== undefined && Boolean(isBlackListed)) {
 
-    if (isBlackListed !== undefined) {
-
-      query.isBlackListed = Boolean(isBlackListed);
+      query.isBlackListed = isBlackListed;
     }
 
     // 設定 role 的查詢條件
