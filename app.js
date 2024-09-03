@@ -9,9 +9,9 @@ const swaggerFile = require("./swagger_output.json");
 
 
 const usersRouter = require("./routes/users");
-const AccountRouter = require("./routes/account");
+const accountRouter = require("./routes/account");
 const UploadRouter = require("./routes/upload");
-const actRouter = require("./routes/activities");
+/* const actRouter = require("./routes/activities"); */
 const dotenv = require("dotenv");
 
 
@@ -46,9 +46,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 app.use("/v1/api/auth", usersRouter);
-app.use("/v1/api/admin/account", AccountRouter);
+app.use("/v1/api/admin/account", accountRouter);
 app.use("/v1/api/admin/upload", UploadRouter);
-app.use("/v1/api/active", actRouter);
+/* app.use("/v1/api/active", actRouter); */
 
 
 // 404 錯誤
