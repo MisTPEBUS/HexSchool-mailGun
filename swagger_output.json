@@ -25,6 +25,10 @@
       "description": "Account"
     },
     {
+      "name": "公告管理",
+      "description": "Activity"
+    },
+    {
       "name": "管理者設定",
       "description": "Admin_Setting"
     },
@@ -1580,6 +1584,58 @@
                 ]
               }
             }
+          }
+        }
+      }
+    },
+    "/v1/api/active": {
+      "get": {
+        "tags": [
+          "公告管理"
+        ],
+        "summary": "公告清單查詢",
+        "description": "公告清單查詢",
+        "parameters": [
+          {
+            "name": "keyWord",
+            "in": "query",
+            "description": "關鍵字fuzzy[tittle,content], 預設空直為搜尋全部",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timeSort",
+            "in": "query",
+            "description": "排序遠到近,進到遠default = desc",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "清單顯示比數,default=10",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "顯示第幾頁資料default=1",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }

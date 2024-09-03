@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 const SettingSchema = new mongoose.Schema(
   {
-    tittle: {
-      type: String,
-      required: true
-    },
-
     status: {
       type: String,
       enum: ['private', 'admin'],
@@ -32,6 +27,6 @@ const SettingSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   },
 );
-const User = mongoose.model("User", userSchema);
+const Setting = mongoose.model("Setting", userSchema);
 
-module.exports = User;
+module.exports = Setting;

@@ -28,6 +28,10 @@ const doc = {
       description: "Account",
     },
     {
+      name: "公告管理",
+      description: "Activity",
+    },
+    {
       name: "管理者設定",
       description: "Admin_Setting",
     },
