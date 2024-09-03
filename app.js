@@ -46,7 +46,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 app.use("/v1/api/auth", usersRouter);
-app.use("/v1/api/admin/account", AccountRouter);
+//app.use("/v1/api/admin/account", AccountRouter);
 app.use("/v1/api/admin/upload", UploadRouter);
 app.use("/v1/api/active", actRouter);
 
