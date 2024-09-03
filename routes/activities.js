@@ -122,14 +122,210 @@ router.get(
   }),
 );
 
-
-
 //新增資料
 
 //更新資料
+router.put(
+  "/admin/:id",
+  handleErrorAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(appError("id格式無效!請使用系統加密過的參數", next));
+    }
+    if (!id) {
+      return next(appError("id傳入格式異常!請查閱API文件", next));
+    }
+
+    if (!id.trim()) {
+      return next(appError("id欄位不能為空值！", next));
+    }
+    const allowedFields = ["title",
+      "content", "isEnabled", "isTop", "publicAt"
+    ]; // 前端提供的欄位名稱
+    const filteredData = {};
+
+
+    Object.keys(updateData).forEach((key) => {
+      if (!updateData[key].trim() && key !== "content") {
+        return next(appError(`${key}欄位不能為空值！`, next));
+      }
+
+      if (allowedFields.includes(key)) {
+        filteredData[key] = updateData[key];
+      }
+    });
+
+
+    const Activity = await Activity.findByIdAndUpdate(
+      id,
+      { $set: filteredData },
+      { new: true, useFindAndModify: false }
+    );
+
+    if (!Activity) {
+      return next(appError("使用者未註冊!", next));
+    }
+    Success(res, "", Activity);
+
+    /*
+    #swagger.tags =  ['公告管理']
+    #swagger.path = '/v1/api/active/admin/account/{id}'
+    #swagger.method = 'put'
+    #swagger.summary='更新基本資料'
+    #swagger.description = '更新基本資料'
+    #swagger.produces = ["application/json"] 
+  */
+    /*
+     #swagger.parameters['id'] = {
+            in: 'path',
+            description: '使用者id',
+            type: 'string'
+         } 
+*/
+    /*
+       #swagger.requestBody = {
+            required: true,
+            description:"會員資料",
+            content: {
+                "application/json": {
+                schema: {
+                    type: "object",
+                    properties: {
+                         title: {
+                            type: "string",
+                             example: ""
+                        },
+                         content: {
+                            type: "string",
+                             example: ""
+                        },
+                        
+                         isTop: {
+                             type: "Boolean",
+                            default: true
+                        },
+                         publicAt: {
+                            type: "Date",
+                             example: ""
+                        },
+                         isEnabled: {
+                            type: "Boolean",
+                            default: true
+                        },
+                    },
+                   
+                }  
+            }
+            }
+        } 
+ 
+ }
+   
+   */
+    /*
+      #swagger.responses[200] = { 
+        schema: {
+            "success": true,
+            "message": "",
+            "data": {
+                  "_id": "66d0c762273627e056be5238",
+                  "name": "Lobinda",
+                  "email": "lobinda123@test.com",
+                  "phone": "0987654321",
+                  "address": "地球某個角落",
+                  "date_of_birth": "2006-08-18T00:00:00.000Z",
+                  "role": "user",
+                  "remarks": "",
+                  "isBlackListed": false,
+                  "id": "66d0c762273627e056be5238"
+            }
+          }
+        } 
+      #swagger.responses[400] = { 
+        schema: {
+            "status": false,
+            "message": "Error Msg",
+          }
+        } 
+        #swagger.responses[403] = { 
+        schema: {
+            "status": false,
+            "message": "Mail not verified",
+          }
+        } 
+     */
+  }),
+);
 
 
 //刪除資料
+router.delete(
+  "/admin/:id",
+  handleErrorAsync(async (req, res, next) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(appError("id格式無效!請使用系統加密過的_id參數", next));
+    }
+    if (!id) {
+      return next(appError("id傳入格式異常!請查閱API文件", next));
+    }
+
+    if (!id.trim()) {
+      return next(appError("id欄位不能為空值！", next));
+    }
+
+
+    const Activity = await Activity.findByIdAndDelete(
+      id,
+      { new: true, useFindAndModify: false }
+    );
+
+    if (!Activity) {
+      return next(appError("使用者未註冊!", next));
+    }
+    Success(res, "資料已刪除");
+
+    /*
+    #swagger.tags =  ['公告管理']
+    #swagger.path = '/ v1/api/active/admin/{id}'
+    #swagger.method = 'delete'
+    #swagger.summary='刪除單筆公告'
+    #swagger.description = '刪除單筆公告'
+    #swagger.produces = ["application/json"] 
+  */
+    /*
+     #swagger.parameters['id'] = {
+            in: 'path',
+            description: '使用者id',
+            type: 'string'
+         } 
+*/
+
+    /*
+      #swagger.responses[200] = { 
+        schema: {
+            "success": true,
+            "message": "資料已刪除"
+          }
+        } 
+      #swagger.responses[400] = { 
+        schema: {
+            "status": false,
+            "message": "Error Msg",
+          }
+        } 
+        #swagger.responses[403] = { 
+        schema: {
+            "status": false,
+            "message": "Mail not verified",
+          }
+        } 
+     */
+  }),
+);
 
 
 

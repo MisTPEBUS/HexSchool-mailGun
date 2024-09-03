@@ -1639,6 +1639,419 @@
           }
         }
       }
+    },
+    "/v1/api/active/admin/account/{id}": {
+      "put": {
+        "tags": [
+          "公告管理"
+        ],
+        "summary": "更新基本資料",
+        "description": "更新基本資料",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "使用者id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "66d0c762273627e056be5238"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Lobinda"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "lobinda123@test.com"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "example": "0987654321"
+                        },
+                        "address": {
+                          "type": "string",
+                          "example": "地球某個角落"
+                        },
+                        "date_of_birth": {
+                          "type": "string",
+                          "example": "2006-08-18T00:00:00.000Z"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "user"
+                        },
+                        "remarks": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "isBlackListed": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "id": {
+                          "type": "string",
+                          "example": "66d0c762273627e056be5238"
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "66d0c762273627e056be5238"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Lobinda"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "lobinda123@test.com"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "example": "0987654321"
+                        },
+                        "address": {
+                          "type": "string",
+                          "example": "地球某個角落"
+                        },
+                        "date_of_birth": {
+                          "type": "string",
+                          "example": "2006-08-18T00:00:00.000Z"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "user"
+                        },
+                        "remarks": {
+                          "type": "string",
+                          "example": ""
+                        },
+                        "isBlackListed": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "id": {
+                          "type": "string",
+                          "example": "66d0c762273627e056be5238"
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error Msg"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error Msg"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Mail not verified"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Mail not verified"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "會員資料",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "isTop": {
+                    "type": "Boolean",
+                    "default": true
+                  },
+                  "publicAt": {
+                    "type": "Date",
+                    "example": ""
+                  },
+                  "isEnabled": {
+                    "type": "Boolean",
+                    "default": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ v1/api/active/admin/{id}": {
+      "delete": {
+        "tags": [
+          "公告管理"
+        ],
+        "summary": "刪除單筆公告",
+        "description": "刪除單筆公告",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "使用者id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "資料已刪除"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "資料已刪除"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error Msg"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Error Msg"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Mail not verified"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Mail not verified"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
